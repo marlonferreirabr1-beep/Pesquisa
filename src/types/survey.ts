@@ -37,19 +37,15 @@ export interface SurveyResponseDocument extends SurveyData {
 }
 
 export const GRADES_LIST = [
-  'Educação Infantil (Maternal / Jardim)',
-  '1º Ano - Ensino Fundamental I',
-  '2º Ano - Ensino Fundamental I',
-  '3º Ano - Ensino Fundamental I',
-  '4º Ano - Ensino Fundamental I',
-  '5º Ano - Ensino Fundamental I',
-  '6º Ano - Ensino Fundamental II',
-  '7º Ano - Ensino Fundamental II',
-  '8º Ano - Ensino Fundamental II',
-  '9º Ano - Ensino Fundamental II',
-  '1ª Série - Ensino Médio',
-  '2ª Série - Ensino Médio',
-  '3ª Série - Ensino Médio (Terceirão)',
+  'Socialização / 2 Anos',
+  '1° Período / 3 Anos',
+  '2° Período / 4 Anos',
+  '3° Período / 5 Anos',
+  '1° Ano / 6 Anos',
+  '2° Ano / 7 Anos',
+  '3° Ano / 8 Anos',
+  '4° Ano / 9 Anos',
+  '5° Ano / 10 Anos',
 ];
 
 export const INITIAL_SURVEY_DATA: SurveyData = {
