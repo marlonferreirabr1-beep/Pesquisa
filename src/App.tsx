@@ -25,7 +25,6 @@ import {
   logoutAdmin,
   type AdminUser 
 } from './services/firebase';
-import { sendSurveyToEmail } from './services/emailService';
 
 export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -131,14 +130,9 @@ export default function App() {
     }));
   };
 
-  // Submit survey action: saves locally/Firestore AND dispatches full email to Marlon.webcontato@gmail.com
+  // Submit survey action: registers in Firestore / persistent database
   const handleFinalSubmit = async () => {
-    // 1. Envia notificação por e-mail com todo o conteúdo
-    await sendSurveyToEmail(surveyData);
-
-    // 2. Registra no banco de dados persistente / Firestore
     await submitSurveyResponse(surveyData);
-
     setIsSubmitted(true);
   };
 

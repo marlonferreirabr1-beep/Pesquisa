@@ -9,8 +9,7 @@ import {
   UserCheck, 
   Star, 
   Loader2,
-  Heart,
-  MailCheck
+  Heart
 } from 'lucide-react';
 import type { SurveyData } from '../../types/survey';
 
@@ -101,8 +100,8 @@ export const ReviewAndSubmitSection: React.FC<ReviewAndSubmitSectionProps> = ({
             </p>
 
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-50 border border-emerald-200/80 text-xs text-emerald-800 font-medium">
-              <MailCheck className="w-4 h-4 text-emerald-600" />
-              <span>Relatório completo entregue à direção</span>
+              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <span>Avaliação registrada no sistema da direção</span>
             </div>
           </div>
 
@@ -295,7 +294,7 @@ export const ReviewAndSubmitSection: React.FC<ReviewAndSubmitSectionProps> = ({
             {isSubmitting ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin text-[#D9BA79]" />
-                <span>Enviando avaliação para a direção...</span>
+                <span>Gravando sua avaliação com segurança...</span>
               </>
             ) : (
               <>
@@ -305,7 +304,7 @@ export const ReviewAndSubmitSection: React.FC<ReviewAndSubmitSectionProps> = ({
             )}
           </motion.button>
           <p className="text-[11px] text-stone-400 text-center mt-2.5">
-            Ao clicar em enviar, sua avaliação será registrada e entregue ao e-mail institucional da direção.
+            Ao clicar em enviar, sua avaliação será registrada com segurança no sistema da direção.
           </p>
         </div>
       </motion.div>

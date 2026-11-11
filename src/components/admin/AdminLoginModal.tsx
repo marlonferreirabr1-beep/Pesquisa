@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Lock, Mail, KeyRound, AlertCircle, Loader2, X, Shield } from 'lucide-react';
-import { loginAdmin, isFirebaseConfigured, type AdminUser } from '../../services/firebase';
+import { loginAdmin, type AdminUser } from '../../services/firebase';
 
 interface AdminLoginModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
   onClose,
   onSuccess,
 }) => {
-  const [email, setEmail] = useState('direcao@colegio.edu.br');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
       const user = await loginAdmin(email, password);
       onSuccess(user);
     } catch (err: any) {
-      setError(err.message || 'Falha no acesso administrativo. Verifique a senha.');
+      setError(err.message || 'Falha no acesso administrativo. Verifique o e-mail ou a senha.');
     } finally {
       setLoading(false);
     }
@@ -79,22 +79,19 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
             <div className="relative">
               <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
-                type="text"
+                type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="direcao@colegio.edu.br"
+                placeholder="ex: usuario@colegio.edu.br"
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 text-sm text-[#283D35] bg-stone-50/50 focus:bg-white focus:outline-none focus:border-[#D9BA79] focus:ring-2 focus:ring-[#D9BA79]/20"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-[#283D35] mb-1 flex justify-between">
-              <span>Senha de Acesso</span>
-              <span className="text-[11px] text-[#B8964C] font-normal">
-                Padrão demo: colegio2026
-              </span>
+            <label className="block text-xs font-semibold text-[#283D35] mb-1">
+              Senha de Acesso
             </label>
             <div className="relative">
               <KeyRound className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -131,15 +128,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
         </form>
 
         <div className="mt-5 pt-4 border-t border-stone-100 text-[11px] text-stone-400 text-center">
-          {isFirebaseConfigured ? (
-            <span className="text-emerald-700 font-medium">
-              ● Firebase Auth Ativo
-            </span>
-          ) : (
-            <span>
-              Chave de segurança pré-configurada para homologação e direção.
-            </span>
-          )}
+          <span>Acesso confidencial protegido por criptografia institucional.</span>
         </div>
       </motion.div>
     </div>

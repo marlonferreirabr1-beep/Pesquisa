@@ -8,7 +8,7 @@ import {
   Search, 
   Eye, 
   Sparkles, 
-  RotateCcw, 
+  Trash2, 
   ArrowLeft,
   X,
   UserCheck
@@ -16,7 +16,7 @@ import {
 import type { SurveyResponseDocument } from '../../types/survey';
 import { GRADES_LIST } from '../../types/survey';
 import { exportResponsesToCsv } from '../../utils/csvExport';
-import { resetDemoSurveyResponses, isFirebaseConfigured, type AdminUser } from '../../services/firebase';
+import { clearAllSurveyResponses, isFirebaseConfigured, type AdminUser } from '../../services/firebase';
 
 interface AdminDashboardProps {
   user: AdminUser;
@@ -169,9 +169,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     exportResponsesToCsv(filteredResponses, `pesquisa_satisfacao_relatorio_${Date.now()}.csv`);
   };
 
-  const handleResetDemo = () => {
-    if (confirm('Deseja recarregar o conjunto de respostas padrão de teste para visualização de métricas?')) {
-      resetDemoSurveyResponses();
+  const handleClearAll = async () => {
+    if (confirm('Tem certeza de que deseja apagar todas as avaliações de teste? O painel ficará limpo para receber as respostas oficiais.')) {
+      await clearAllSurveyResponses();
       onRefreshData();
     }
   };
@@ -256,12 +256,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={handleResetDemo}
+              onClick={handleClearAll}
               type="button"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-medium text-stone-600 hover:text-[#283D35] bg-stone-50 hover:bg-stone-100 border border-stone-200 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-medium text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors cursor-pointer"
+              title="Apagar todas as avaliações de teste"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
-              <span>Dados de Exemplo</span>
+              <Trash2 className="w-3.5 h-3.5 text-rose-500" />
+              <span>Limpar Todas as Avaliações</span>
             </button>
           </div>
         </div>
@@ -563,8 +564,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
 
           {filteredResponses.length === 0 ? (
-            <div className="p-12 text-center text-stone-400 text-sm">
-              Nenhuma resposta encontrada para os filtros aplicados.
+            <div className="p-12 text-center text-stone-400 text-sm space-y-1">
+              <p className="font-semibold text-stone-500">Nenhuma avaliação registrada ainda.</p>
+              <p className="text-xs text-stone-400">O painel está limpo e pronto para receber as respostas dos pais e responsáveis.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">

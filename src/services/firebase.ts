@@ -4,6 +4,8 @@ import {
   collection, 
   addDoc, 
   getDocs, 
+  deleteDoc,
+  doc,
   query, 
   orderBy, 
   serverTimestamp,
@@ -54,8 +56,14 @@ if (isFirebaseConfigured) {
   }
 }
 
-const LOCAL_STORAGE_KEY = 'escola_pesquisa_satisfacao_v1';
+const LOCAL_STORAGE_KEY = 'escola_pesquisa_satisfacao_v2';
 const ADMIN_SESSION_KEY = 'escola_admin_session_v1';
+
+// Purge any previously stored test responses
+try {
+  localStorage.removeItem('escola_pesquisa_satisfacao_v1');
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
+} catch {}
 
 // Seed demo responses so admin dashboard has realistic initial data to analyze
 const DEMO_RESPONSES: SurveyResponseDocument[] = [
@@ -205,12 +213,11 @@ function getStoredLocalResponses(): SurveyResponseDocument[] {
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(DEMO_RESPONSES));
-      return DEMO_RESPONSES;
+      return [];
     }
     return JSON.parse(raw);
   } catch {
-    return DEMO_RESPONSES;
+    return [];
   }
 }
 
@@ -303,11 +310,27 @@ export async function fetchAllSurveyResponses(): Promise<SurveyResponseDocument[
 }
 
 /**
- * Reinicializa dados de demonstração caso o administrador queira testar métricas
+ * Limpa definitivamente todas as avaliações do sistema (armazenamento local e nuvem)
  */
-export function resetDemoSurveyResponses(): SurveyResponseDocument[] {
-  saveStoredLocalResponses(DEMO_RESPONSES);
-  return DEMO_RESPONSES;
+export async function clearAllSurveyResponses(): Promise<void> {
+  try {
+    localStorage.removeItem('escola_pesquisa_satisfacao_v1');
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify([]));
+  } catch {}
+
+  const currentDb = db;
+  if (currentDb) {
+    try {
+      const colRef = collection(currentDb, 'survey_responses');
+      const snapshot = await getDocs(colRef);
+      const deletions = snapshot.docs.map((docSnap) =>
+        deleteDoc(doc(currentDb, 'survey_responses', docSnap.id))
+      );
+      await Promise.all(deletions);
+    } catch (err) {
+      console.warn('Aviso ao limpar Firestore:', err);
+    }
+  }
 }
 
 /**
@@ -345,16 +368,15 @@ export async function loginAdmin(email: string, pass: string): Promise<AdminUser
     }
   }
 
-  // 2. Chave de acesso administrativo do colégio (padrão institucional)
+  // 2. Chave de acesso administrativo do colégio
   const normalizedEmail = email.trim().toLowerCase();
-  const validAdminEmails = ['admin@colegio.edu.br', 'direcao@colegio.edu.br', 'marlonferreirabr.1@gmail.com', 'admin'];
+  const validAdminEmails = ['direcao@colegio.edu.br', 'admin@colegio.edu.br'];
   
   if (
-    (validAdminEmails.includes(normalizedEmail) && (pass === 'colegio2026' || pass === 'admin123' || pass === 'colegiopremium')) ||
-    (pass === 'colegio2026')
+    validAdminEmails.includes(normalizedEmail) && pass === 'escola082'
   ) {
     const user: AdminUser = {
-      email: normalizedEmail.includes('@') ? normalizedEmail : 'direcao@colegio.edu.br',
+      email: normalizedEmail,
       name: 'Direção Geral do Colégio',
       isMaster: true,
     };

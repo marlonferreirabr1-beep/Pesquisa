@@ -13,7 +13,7 @@ O projeto conta com um **carrossel vertical cinematográfico** guiado por rolage
 - **Destaques**: Dourado nobre (`#D9BA79` / `#B8964C`).
 - **Tipografia**: Verde-escuro institucional (`#283D35`) e títulos elegantes em fonte serifada (*Cormorant Garamond*).
 - **Logotipo do Colégio**: Proporções preservadas no topo da apresentação e no painel gestor.
-- **Envio Automático por E-mail**: A cada avaliação enviada, um relatório completo de ponta a ponta é disparado diretamente para o e-mail: **Marlon.webcontato@gmail.com**, contendo todas as notas, identificação e comentários.
+- **Armazenamento Seguro e Painel Gestor**: Todas as avaliações são registradas e podem ser consultadas em tempo real com gráficos, filtros e detalhes pela equipe diretiva através do cadeado no topo.
 - **Turno Único**: Configurado para o turno **Vespertino (Tarde)**.
 - **Rolagem Natural e Livre**: O usuário pode rolar a página verticalmente para cima ou para baixo quando desejar, com fluidez e sem bloqueios ou saltos involuntários.
 
@@ -21,11 +21,11 @@ O projeto conta com um **carrossel vertical cinematográfico** guiado por rolage
 
 ## 📋 As 8 Etapas da Pesquisa
 
-1. **Boas-vindas**: Abertura institucional calorosa com estimativa de tempo (3 a 5 min) e botão de início.
-2. **Identificação**: Turma/Série (obrigatório), Turno (Matutino, Vespertino, Integral) e dados opcionais com aviso de privacidade e LGPD.
+1. **Boas-vindas**: Abertura institucional calorosa com estimativa de tempo (3 a 5 min).
+2. **Identificação**: Turma/Série (obrigatório) e dados opcionais com aviso de privacidade e LGPD.
 3. **Ensino e Aprendizagem**: Avaliação de 1 a 5 estrelas para qualidade do ensino, desenvolvimento do aluno e professores/metodologias.
 4. **Comunicação e Atendimento**: Avaliação de 1 a 5 estrelas para comunicação, secretaria e coordenação pedagógica.
-5. **Estrutura e Segurança**: Avaliação de 1 a 5 estrelas para limpeza, segurança dos alunos e ambientes físicos.
+5. **Estrutura e Segurança**: Avaliação de 1 a 5 estrelas para limpeza, segurança dos alunos e conforto dos ambientes.
 6. **Satisfação Geral & NPS**: Nota geral de 1 a 5 estrelas e escala interativa de recomendação de 0 a 10 (Net Promoter Score).
 7. **Espaço Aberto / Sugestões**: Três áreas de texto livre para pontos fortes, oportunidades de melhoria e elogios.
 8. **Revisão e Envio**: Conferência das respostas, proteção contra envios acidentais e tela de gratidão com assinatura da Equipe Gestora.
@@ -34,11 +34,12 @@ O projeto conta com um **carrossel vertical cinematográfico** guiado por rolage
 
 ## 🔐 Painel Administrativo da Direção
 
-Acesse clicando no botão **"Área Administrativa"** no topo da tela ou pelo endereço com hash `#admin`.
+Acesse clicando no ícone de **cadeado ("Área Administrativa")** no topo da tela ou pelo endereço com hash `#admin`.
 
-- **Credenciais de Acesso (Modo Homologação)**:
-  - **E-mail**: `direcao@colegio.edu.br` (ou `admin@colegio.edu.br`)
-  - **Senha**: `colegio2026`
+- **Credenciais de Acesso**:
+  - **E-mail**: `direcao@colegio.edu.br`
+  - **Senha**: `escola082`
+  *(Os campos de login iniciam em branco e não exibem credenciais na interface pública)*
 - **Recursos da Gestão**:
   - Total de avaliações recebidas.
   - Média geral de satisfação calculada dinamicamente.
