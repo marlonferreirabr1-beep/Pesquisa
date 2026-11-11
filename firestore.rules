@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default-deny global safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Funções auxiliares de validação
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidSurveyPayload(data) {
+      return data.grade is string && data.grade.size() <= 120 &&
+             data.shift in ['Matutino', 'Vespertino', 'Integral'] &&
+             data.status == 'completed' &&
+             data.ratings is map &&
+             data.ratings.overallSatisfaction is number &&
+             data.ratings.overallSatisfaction >= 1 &&
+             data.ratings.overallSatisfaction <= 5;
+    }
+
+    // Coleção de Respostas da Pesquisa de Satisfação
+    match /survey_responses/{responseId} {
+      // Criação aberta para que qualquer família / responsável possa responder
+      allow create: if isValidSurveyPayload(request.resource.data);
+
+      // Leitura e gestão restritas exclusivamente à equipe administrativa autenticada
+      allow read, list: if isSignedIn();
+
+      // Edição ou exclusão restritas à administração
+      allow update, delete: if isSignedIn();
+    }
+  }
+}

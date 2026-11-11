@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "SurveyResponse": {
+      "title": "SurveyResponse",
+      "description": "Avaliação institucional submetida por um pai ou responsável escolar",
+      "type": "object",
+      "properties": {
+        "responsibleName": {
+          "type": "string",
+          "maxLength": 150,
+          "description": "Nome do responsável (opcional)"
+        },
+        "studentName": {
+          "type": "string",
+          "maxLength": 150,
+          "description": "Nome do aluno (opcional)"
+        },
+        "grade": {
+          "type": "string",
+          "maxLength": 100,
+          "description": "Turma ou série do estudante"
+        },
+        "shift": {
+          "type": "string",
+          "enum": ["Matutino", "Vespertino", "Integral"],
+          "description": "Turno escolar"
+        },
+        "ratings": {
+          "type": "object",
+          "description": "Notas atribuídas de 1 a 5 estrelas em cada critério"
+        },
+        "npsScore": {
+          "type": "number",
+          "description": "Probabilidade de recomendação de 0 a 10"
+        },
+        "suggestions": {
+          "type": "object",
+          "description": "Comentários livres e sugestões abertas"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Data e horário de envio em formato ISO"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Epoch timestamp em milissegundos"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["completed"],
+          "description": "Status da avaliação"
+        }
+      },
+      "required": ["grade", "shift", "ratings", "status"]
+    }
+  },
+  "firestore": {
+    "/survey_responses/{responseId}": {
+      "schema": "SurveyResponse",
+      "description": "Coleção contendo todas as pesquisas de satisfação enviadas pelas famílias"
+    }
+  }
+}

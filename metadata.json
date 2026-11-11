@@ -1,0 +1,6 @@
+{
+  "name": "Pesquisa de Satisfação Escolar",
+  "description": "Plataforma institucional de pesquisa de satisfação para pais e responsáveis com carrossel vertical interativo e painel administrativo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
